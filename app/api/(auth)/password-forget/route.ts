@@ -1,6 +1,6 @@
 import { passwordSchema } from "@/lib/zod";
+import { saltAndHashPassword } from "@/utils/password";
 import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     }
 
     // Hash the new password
-    const hashedPassword = await bcrypt.hash(validatedPassword, 10);
+    const hashedPassword = await saltAndHashPassword(validatedPassword);
 
     // Update the user's password
     await prisma.user.update({
