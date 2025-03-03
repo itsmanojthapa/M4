@@ -20,13 +20,29 @@ model User {
   image         String?
   accounts      Account[]
  
-  verificationToken            String?
-  verificationTokenExpiresAt   DateTime?
+  verificationTokens           VerificationToken?
+  otp                          OTP?
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
  
+model VerificationToken {
+  email     String   @unique @id  // Email is the primary key
+  token     String   @unique  
+  expiresAt DateTime
+
+  user      User     @relation(fields: [email], references: [email], onDelete: Cascade)
+}
+
+model OTP {
+  userId    String   @unique @id // One OTP per user at a time
+  otp       String   // Use String to handle leading zeros
+  expiresAt DateTime
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Account {
   userId            String
   type              String
@@ -47,5 +63,3 @@ model Account {
  
   @@id([provider, providerAccountId])
 }
- 
-

@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import React, { useState, useEffect } from "react";
 
 export default function Page({
@@ -24,8 +24,12 @@ export default function Page({
         });
         setResult(res.data);
       } catch (error: unknown) {
-        console.error(error);
-        setResult({ success: false, message: "Verification failed" });
+        if (error instanceof AxiosError) {
+          setResult({ success: false, message: error.response?.data.error });
+          console.log(error);
+        } else {
+          setResult({ success: false, message: "Something went wrong" });
+        }
       }
     };
 
@@ -37,7 +41,6 @@ export default function Page({
   return (
     <div>
       {slug}
-      <h1>Verifying Email...</h1>
       {result && <p>{result.message || "Verification in progress..."}</p>}
     </div>
   );

@@ -70,7 +70,7 @@ export default {
           const resend = new Resend(process.env.RESEND_API_KEY);
 
           const obj = {
-            userId: user.id,
+            email: user.email,
             token: Math.floor(Math.random() * 10000000000),
           };
           if (!process.env.AUTH_SECRET) {
@@ -82,11 +82,17 @@ export default {
             expiresIn: "30m",
           });
 
-          await prisma.user.update({
-            where: { id: user.id },
-            data: {
-              verificationToken: token.toString(),
-              verificationTokenExpiresAt: new Date(Date.now() + 1000 * 60 * 30), // 30 minutes
+          await prisma.verificationToken.upsert({
+            // Create new token if doesn't exist
+            where: { email },
+            update: {
+              token: token.toString(),
+              expiresAt: new Date(Date.now() + 1000 * 60 * 30), // 30 minutes
+            }, // Update token & expiry if already exists
+            create: {
+              email,
+              token: token.toString(),
+              expiresAt: new Date(Date.now() + 1000 * 60 * 30), // 30 minutes
             },
           });
           const { data, error } = await resend.emails.send({
