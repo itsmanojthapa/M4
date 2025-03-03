@@ -56,7 +56,6 @@ const ForgetPasswordForm = () => {
           toast({ title: error.errors[0].message, variant: "destructive" });
         }
         setLoading(false);
-        return;
       }
 
       try {
@@ -90,9 +89,11 @@ const ForgetPasswordForm = () => {
         if (error instanceof ZodError) {
           setError(error.errors[0].message);
           toast({ title: error.errors[0].message, variant: "destructive" });
+        } else {
+          setError("Something went wrong");
+          toast({ title: "Something went wrong", variant: "destructive" });
         }
         setLoading(false);
-        return;
       }
 
       if (password !== repass) {
@@ -101,6 +102,7 @@ const ForgetPasswordForm = () => {
         setLoading(false);
         return;
       }
+      setLoading(false);
       setStage(3);
     }
   };

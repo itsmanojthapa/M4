@@ -43,3 +43,16 @@ export const forgetPasswordSchema = object({
   email: emailSchema,
   password: passwordSchema,
 });
+
+export const changePasswordSchema = object({
+  newPassword: passwordSchema,
+  confirmPassword: passwordSchema,
+}).superRefine(({ newPassword, confirmPassword }, ctx) => {
+  if (newPassword !== confirmPassword) {
+    ctx.addIssue({
+      path: ["confirmPassword"],
+      message: "Passwords do not match",
+      code: z.ZodIssueCode.custom,
+    });
+  }
+});

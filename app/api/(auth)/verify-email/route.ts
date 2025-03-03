@@ -50,7 +50,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     // Fetch user from database
     const user = await prisma.user.findUnique({
-      where: { email: decoded.email },
+      where: { email: decoded.email.toLowerCase() },
       select: {
         email: true,
         emailVerified: true,
@@ -69,7 +69,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
 
     const verificationToken = await prisma.verificationToken.findFirst({
-      where: { email: user.email },
+      where: { email: user.email.toLowerCase() },
       select: {
         token: true,
         expiresAt: true,

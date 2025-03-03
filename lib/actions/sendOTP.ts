@@ -1,3 +1,5 @@
+"use server";
+
 import prisma from "@/utils/db/prisma";
 import otpHTML from "@/utils/otpHTML";
 import { Resend } from "resend";

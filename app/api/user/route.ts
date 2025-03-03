@@ -12,7 +12,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const { email }: VerifyRequest = await req.json();
 
     const res = await prisma.user.findUnique({
-      where: { email },
+      where: { email: email.toLowerCase() },
       select: {
         id: true,
         name: true,
