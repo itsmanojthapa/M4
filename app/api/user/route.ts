@@ -1,11 +1,9 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/utils/db/prisma";
 import { NextResponse } from "next/server";
 
 type VerifyRequest = {
   email: string;
 };
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {

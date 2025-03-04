@@ -4,21 +4,22 @@ import jwt, {
   JsonWebTokenError,
   TokenExpiredError,
 } from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/utils/db/prisma";
 
 type VerifyRequest = {
   token: string;
 };
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     // Parse request body
     const { token }: VerifyRequest = await req.json();
 
-    if (!token) {
-      return NextResponse.json({ error: "Missing Token" }, { status: 400 });
+    if (!token || typeof token !== "string") {
+      return NextResponse.json(
+        { error: "Invalid or missing token" },
+        { status: 400 },
+      );
     }
 
     // Ensure JWT secret is available
@@ -50,7 +51,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     // Fetch user from database
     const user = await prisma.user.findUnique({
-      where: { email: decoded.email.toLowerCase() },
+      where: { email: decoded.email.toLowerCase().trim() },
       select: {
         email: true,
         emailVerified: true,
@@ -109,7 +110,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       { status: 200 },
     );
   } catch (error) {
-    console.error("Unexpected Error:", error);
+    console.log("Unexpected Error:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 },

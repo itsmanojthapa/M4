@@ -1,13 +1,11 @@
 import sendOTP from "@/lib/actions/sendOTPAction";
+import prisma from "@/utils/db/prisma";
 import genOTP from "@/utils/genOTP";
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 type OtpRequest = {
   id: string;
 };
-
-const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {

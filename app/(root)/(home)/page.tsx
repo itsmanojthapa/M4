@@ -20,6 +20,7 @@ const Page = () => {
           alt="user image"
           width={50}
           height={50}
+          unoptimized={true}
         />
       )}
     </Link>

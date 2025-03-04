@@ -1,10 +1,9 @@
 import { signUpSchema } from "@/lib/zod";
-import { PrismaClient, User } from "@prisma/client";
+import prisma from "@/utils/db/prisma";
 import bcrypt from "bcryptjs";
+import { User } from "next-auth";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
-
-const prisma = new PrismaClient();
 
 interface SignUpRequest {
   name: string;
@@ -32,9 +31,11 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const avatarUrl = `https://api.dicebear.com/8.x/bottts/svg?seed=${name.toString().replace(/\s+/g, "")}`;
+
     // Create user
     const user: User = await prisma.user.create({
-      data: { name, email: mail, password: hashedPassword },
+      data: { name, email: mail, password: hashedPassword, image: avatarUrl },
     });
 
     return NextResponse.json(

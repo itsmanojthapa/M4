@@ -1,9 +1,8 @@
 import { passwordSchema } from "@/lib/zod";
+import prisma from "@/utils/db/prisma";
 import { saltAndHashPassword } from "@/utils/password";
-import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
