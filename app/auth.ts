@@ -17,10 +17,38 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     updateAge: 86400, // 24 hours
   },
   callbacks: {
-    async signIn({ user }) {
-      if (!user) {
-        throw new Error("User not found");
+    async signIn({ user, account }) {
+      if (account?.provider === "google") {
+        // Find user by email
+        const existingUser = await prisma.user.findUnique({
+          where: { email: user.email as string },
+        });
+
+        if (existingUser) {
+          // Ensure the OAuth account is linked
+          await prisma.account.upsert({
+            where: {
+              provider_providerAccountId: {
+                provider: "google",
+                providerAccountId: account.providerAccountId,
+              },
+            },
+            update: {}, // If exists, do nothing
+            create: {
+              userId: existingUser.id,
+              provider: "google",
+              providerAccountId: account.providerAccountId,
+              type: account.type,
+              access_token: account.access_token,
+              refresh_token: account.refresh_token,
+              expires_at: account.expires_at,
+              token_type: account.token_type,
+              id_token: account.id_token,
+            },
+          });
+        }
       }
+
       return true;
     },
     async jwt({ token, user }) {
