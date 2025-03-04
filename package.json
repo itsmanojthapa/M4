@@ -1,7 +1,7 @@
 {
   "name": "@itsmanojthapa/m4",
   "version": "0.1.1",
-  "bin": ".bin/cli.js",
+  "bin": "./bin/cli.js",
   "scripts": {
     "dev": "next dev",
     "devall": "concurrently \"yarn dev\" \"yarn gen\" \"yarn migrate\"",
@@ -12,6 +12,12 @@
     "gen": "yarn prisma generate",
     "studio": "yarn prisma studio"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsmanojthapa/m4"
+  },
+  "author": "Manoj Thapa",
+  "license": "MIT",
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
     "@hookform/resolvers": "^4.1.2",
