@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginForm2 } from "@/components/login-form2";
+import { LoginForm2 } from "@/components/(auth)/login-form2";
 import { useSession } from "next-auth/react";
 import { redirect, useSearchParams } from "next/navigation";
 import React from "react";

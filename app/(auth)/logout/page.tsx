@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import LogoutForm from "@/components/logout-form";
+import LogoutForm from "@/components/(auth)/logout-form";
 import { auth } from "@/app/auth";
 
 const Page = async () => {

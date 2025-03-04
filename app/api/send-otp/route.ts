@@ -1,4 +1,4 @@
-import sendOTP from "@/lib/actions/sendOTP";
+import sendOTP from "@/lib/actions/sendOTPAction";
 import genOTP from "@/utils/genOTP";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";

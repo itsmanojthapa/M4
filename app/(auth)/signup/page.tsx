@@ -1,5 +1,5 @@
 import { auth } from "@/app/auth";
-import SignUpForm2 from "@/components/signup-form2";
+import SignUpForm2 from "@/components/(auth)/signup-form2";
 import { redirect } from "next/navigation";
 import React from "react";
 // import { SignUpForm } from "@/components/signup-form";

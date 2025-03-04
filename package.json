@@ -1,7 +1,7 @@
 {
-  "name": "auth",
+  "name": "@itsmanojthapa/m4",
   "version": "0.1.0",
-  "private": true,
+  "bin": ".bin/cli.js",
   "scripts": {
     "dev": "next dev",
     "devall": "concurrently \"yarn dev\" \"yarn gen\" \"yarn migrate\"",
