@@ -1,4 +1,4 @@
-import { auth } from "@/app/auth";
+import { auth } from "@/services/auth/auth";
 import { ChangePasswordForm } from "@/components/(auth)/change-password-form";
 import { redirect } from "next/navigation";
 import React from "react";

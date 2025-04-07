@@ -24,7 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { changePasswordAction } from "@/lib/actions/changePasswordAction";
+import { changePasswordAction } from "@/prisma/actions/changePasswordAction";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";

@@ -4,7 +4,7 @@ import jwt, {
   JsonWebTokenError,
   TokenExpiredError,
 } from "jsonwebtoken";
-import prisma from "@/utils/db/prisma";
+import prisma from "@/prisma/prismaClient";
 
 type VerifyRequest = {
   token: string;

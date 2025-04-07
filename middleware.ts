@@ -1,8 +1,16 @@
-// import { auth } from "@/app/auth";
-export { auth as middleware } from "@/app/auth";
+import { NextResponse } from "next/server";
+import authConfig from "@/services/auth/auth.config";
+import NextAuth from "next-auth";
 
-// export default auth(async function middleware(req) {});
+const { auth } = NextAuth(authConfig);
+export default auth(async function middleware(req) {
+  if (!req.auth) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+  return NextResponse.next(); // Allow request to proceed
+});
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  // matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/multiplayer/(.*)", "/post"],
 };

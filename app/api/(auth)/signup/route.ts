@@ -1,9 +1,9 @@
 import { signUpSchema } from "@/lib/zod";
-import prisma from "@/utils/db/prisma";
-import bcrypt from "bcryptjs";
+import prisma from "@/prisma/prismaClient";
 import { User } from "next-auth";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { saltAndHashPassword } from "@/utils/password";
 
 interface SignUpRequest {
   name: string;
@@ -29,7 +29,7 @@ export async function POST(req: Request): Promise<NextResponse> {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await saltAndHashPassword(password);
 
     const avatarUrl = `https://api.dicebear.com/8.x/bottts/svg?seed=${name.toString().replace(/\s+/g, "")}`;
 

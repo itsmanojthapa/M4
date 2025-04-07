@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import LogoutForm from "@/components/(auth)/logout-form";
-import { auth } from "@/app/auth";
+import { auth } from "@/services/auth/auth";
 
 const Page = async () => {
   const session = await auth();

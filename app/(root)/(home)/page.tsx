@@ -9,7 +9,7 @@ import React from "react";
 const Page = () => {
   const session = useSession();
   if (session.status === "loading") <div>Loading...</div>;
-  if (session.status === "unauthenticated") redirect("/login");
+  if (!session.data?.user) redirect("/login");
 
   return (
     <Link href={"/logout"}>

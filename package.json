@@ -2,15 +2,21 @@
   "name": "@itsmanojthapa/m4",
   "version": "0.1.3",
   "bin": "./bin/cli.js",
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "scripts": {
     "dev": "next dev",
-    "devall": "concurrently \"yarn dev\" \"yarn gen\" \"yarn migrate\"",
+    "devall": "concurrently \"npm run dev\" \"npm run gen\" \"npm run migrate\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate": "yarn prisma migrate dev",
-    "gen": "yarn prisma generate",
-    "studio": "yarn prisma studio"
+    "migrate": "npx prisma migrate dev",
+    "gen": "npx prisma generate",
+    "studio": "npx prisma studio",
+    "seed": "npx prisma db seed",
+    "dbpull": "npx prisma db pull",
+    "check":"tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -36,15 +42,15 @@
     "input-otp": "^1.4.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.475.0",
-    "next": "15.1.7",
+    "next": "^15.2.4",
     "next-auth": "^5.0.0-beta.25",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "resend": "^4.1.2",
+    "resend": "^4.2.0",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
-    "ws": "^8.18.0",
+    "ws": "^8.18.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -59,8 +65,8 @@
     "postcss": "^8",
     "prettier": "^3.5.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "prisma": "^6.3.1",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }

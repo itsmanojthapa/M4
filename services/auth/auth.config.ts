@@ -3,10 +3,9 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signInSchema } from "@/lib/zod";
 import { comparePassword } from "@/utils/password";
-import prisma from "@/utils/db/prisma";
-import { Resend } from "resend";
-import emailHTML from "@/utils/emailHTML";
+import prisma from "@/prisma/prismaClient";
 import jwt from "jsonwebtoken";
+import { sendVerifyEmail } from "../email/sendEmail";
 
 export default {
   providers: [
@@ -67,8 +66,6 @@ export default {
         }
 
         if (!user.emailVerified) {
-          const resend = new Resend(process.env.RESEND_API_KEY);
-
           const obj = {
             email: user.email,
             token: Math.floor(Math.random() * 10000000000),
@@ -95,22 +92,13 @@ export default {
               expiresAt: new Date(Date.now() + 1000 * 60 * 30), // 30 minutes
             },
           });
-          const { data, error } = await resend.emails.send({
-            from: "verify-email@manojthapa.software",
-            to: [user.email],
-            subject: "Verify your email",
-            html: emailHTML({
-              name: user.name,
-              link: `http://${process.env.BASE_URL}/verify-email/${token}`,
-            }),
-          });
-          console.log(error);
+          const res = await sendVerifyEmail(user.email, user.name, token);
 
-          if (data?.id)
+          if (res.success) {
             throw new AuthError("Email not verified", {
               cause: "Check your email to verify first",
             });
-
+          }
           throw new AuthError("Email not verified", {
             cause: "Email not verified: ",
           });

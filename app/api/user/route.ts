@@ -1,4 +1,4 @@
-import prisma from "@/utils/db/prisma";
+import prisma from "@/prisma/prismaClient";
 import { NextResponse } from "next/server";
 
 type VerifyRequest = {

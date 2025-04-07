@@ -17,7 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 
 import { signInSchema } from "@/lib/zod";
 import { handleZodError } from "@/utils/handleZodError";
-import { loginAction } from "@/lib/actions/loginAction";
+import { loginAction } from "@/prisma/actions/loginAction";
 
 export function LoginForm({ redirectTo }: { redirectTo: string }) {
   const [loading, setLoading] = useState(false);

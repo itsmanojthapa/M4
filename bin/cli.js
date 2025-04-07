@@ -16,8 +16,8 @@ const repoName = process.argv[2] || "m4-app";
 const gitCheckoutCommand = `git clone --depth 1 https://github.com/itsmanojthapa/m4 ${repoName}`;
 const installDepsCommand =
   process.platform === "win32"
-    ? `cd ${repoName} & yarn`
-    : `cd ${repoName} && yarn`;
+    ? `cd ${repoName} & npm install`
+    : `cd ${repoName} && npm install`;
 
 // Clone repo
 console.log(`🚀 Cloning repository into ${repoName}...`);
@@ -35,9 +35,9 @@ console.log(`🎉 Your Next.js app is ready! Run:`);
 console.log(`\n  cd ${repoName}`);
 console.log(`
 ☑ create app
-☑ yarn install
+☑ npm install
 ☐ Set up .env file first 🙏
-☐ yarn gen - Generate Prisma client
-☐ yarn migrate - Run Prisma migrations
-☐ yarn dev - Start the development server
+☐ npm gen - Generate Prisma client
+☐ npm migrate - Run Prisma migrations
+☐ npm dev - Start the development server
 `);

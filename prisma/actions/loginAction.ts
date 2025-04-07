@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/app/auth";
+import { signIn } from "@/services/auth/auth";
 import { AuthError } from "next-auth";
 
 export async function loginAction(

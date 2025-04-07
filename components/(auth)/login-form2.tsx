@@ -15,7 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInSchema } from "@/lib/zod";
-import { loginAction } from "@/lib/actions/loginAction";
+import { loginAction } from "@/prisma/actions/loginAction";
 import {
   Form,
   FormControl,

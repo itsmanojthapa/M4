@@ -1,6 +1,6 @@
-import { auth } from "@/app/auth";
+import { auth } from "@/services/auth/auth";
 import { changePasswordSchema } from "@/lib/zod";
-import prisma from "@/utils/db/prisma";
+import prisma from "@/prisma/prismaClient";
 import { saltAndHashPassword } from "@/utils/password";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
