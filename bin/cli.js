@@ -13,7 +13,7 @@ const runCommand = (command) => {
 };
 
 const repoName = process.argv[2] || "m4-app";
-const gitCheckoutCommand = `git clone --depth 1 https://github.com/itsmanojthapa/m4 ${repoName}`;
+const gitCheckoutCommand = `git clone --depth 1 https://github.com/itsmanojthapa/m4stack ${repoName}`;
 const installDepsCommand =
   process.platform === "win32"
     ? `cd ${repoName} & npm install`
